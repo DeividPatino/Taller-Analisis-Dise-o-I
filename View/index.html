@@ -14,5 +14,46 @@
       <a href="login.html">Iniciar sesion</a>
     </nav>
   </header>
+
+  <main>
+    <section id="busqueda">
+      <h2>Buscar Libros</h2>
+      <form id="buscarForm">
+        <input type="text" id="buscarInput" placeholder="Buscar por título, autor o editorial">
+        <button type="submit">Buscar</button>
+      </form>
+      <div id="resultados"></div>
+    </section>
+  </main>
+  <script>
+  document.getElementById("buscarForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const query = document.getElementById("buscarInput").value;
+
+    try {
+      const res = await fetch(`http://127.0.0.1:8000/libros?titulo=${encodeURIComponent(query)}`);
+      const data = await res.json();
+
+      const resultadosDiv = document.getElementById("resultados");
+
+      if (data.length === 0) {
+        resultadosDiv.innerHTML = "<p>No se encontraron libros</p>";
+        return;
+      }
+
+      resultadosDiv.innerHTML = data.map(libro => `
+        <div class="libro">
+          <h3>${libro.titulo}</h3>
+          <p><b>Autor:</b> ${libro.autor}</p>
+          <p><b>Editorial:</b> ${libro.editorial}</p>
+          <p><b>Disponibilidad:</b> ${libro.disponible ? "Disponible ✅" : "Prestado ❌"}</p>
+        </div>
+      `).join("");
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  });
+</script>
 </body>
 </html>
