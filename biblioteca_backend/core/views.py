@@ -5,25 +5,25 @@ from rest_framework import status
 from django.contrib.auth import authenticate
 from .models import Usuario, Libro, Reserva, Prestamo
 from .serializers import UsuarioSerializer, LibroSerializer, ReservaSerializer, PrestamoSerializer
+from django.shortcuts import render
 
 
 # =====================
 # Vistas Frontend (HTML)
 # =====================
+
 def login_page(request):
     return render(request, "login.html")
 
 def registro_page(request):
     return render(request, "registro.html")
 
-def admin_panel(request):
-    return render(request, "adminpanel.html")
-
 def catalogo_page(request):
     return render(request, "catalogo.html")
 
 def historial_page(request):
     return render(request, "historial.html")
+
 
 
 # =====================

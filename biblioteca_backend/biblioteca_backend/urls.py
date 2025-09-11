@@ -24,7 +24,7 @@ def home(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home),  # 👈 ahora la raíz / mostrará este mensaje
-    path('login', include('core.urls')),
+    path('login/', include('core.urls')),
     path('usuarios', include('core.urls')),
     path('libros', include('core.urls')),
     path('reservas', include('core.urls')),
